@@ -7,7 +7,7 @@ import (
 
 type VideoController interface {
 	FindAll() []entity.Video
-	Save(ctx *gin.Context)
+	Save(ctx *gin.Context) entity.Video
 }
 
 type controller struct {
@@ -21,5 +21,13 @@ func New(service service.VideoService) VideoController {
 	}
 }
 
-func  (c *control) findAll() []entity.Video
-Save(ctx *gin.Context)
+func  (c *control) FindAll() []entity.Video{
+	return c.service.FindAll()
+}
+func (c *controller) Save(ctx *gin.Context) entity.Video {
+	var video entity.Video
+	ctx.BindJSON(&video)
+	c.service.Save(video)
+	return video
+}
+// Save(ctx *gin.Context)
