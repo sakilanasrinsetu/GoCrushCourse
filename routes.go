@@ -6,11 +6,7 @@ import (
 )
 
 // Post data structure
-type Post struct {
-	Id    int    `json:"id"`
-	Title string `json:"title"`
-	Text  string `json:"text"`
-}
+
 
 var (
 	posts []Post
@@ -38,7 +34,7 @@ func addPost(resp http.ResponseWriter, req *http.Request) {
 		resp.WriteHeader(http.StatusInternalServerError)
 		resp.Write([]byte(`{"error": "Error unmarshalling the request"}`))
 	}
-	post.Id = len(posts) + 1
+	post.ID = len(posts) + 1
 	posts = append(posts, post)
 	resp.WriteHeader(http.StatusOK)
 	result, err := json.Marshal(post)
